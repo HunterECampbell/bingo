@@ -1,10 +1,32 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import NumberDisplay from "@/pages/bingo/NumberDisplay";
+import SelectedNumbers from "@/pages/bingo/SelectedNumbers";
 
 const Bingo = () => {
   const { t } = useTranslation();
+
+  const generateRangeOfNums = ({
+    start,
+    end,
+  }: {
+    start: number;
+    end: number;
+  }): number[] => {
+    let nums: number[] = [];
+
+    for (let i = start; i <= end; i++) {
+      nums.push(i);
+    }
+
+    return nums;
+  };
+
+  const bNums: number[] = generateRangeOfNums({ start: 1, end: 15 });
+  const iNums: number[] = generateRangeOfNums({ start: 16, end: 30 });
+  const nNums: number[] = generateRangeOfNums({ start: 31, end: 45 });
+  const gNums: number[] = generateRangeOfNums({ start: 46, end: 60 });
+  const oNums: number[] = generateRangeOfNums({ start: 61, end: 75 });
 
   const [remainingNumbers, setRemainingNumbers] = useState<number[]>([]);
 
@@ -40,10 +62,33 @@ const Bingo = () => {
 
   return (
     <div className="raised-connected flex flex-col rounded-xl p-2">
-      <h1 className="text-2xl font-bold text-center tracking-wide">
-        {t("bingo.bingo").toUpperCase()}
-      </h1>
-      <NumberDisplay isActive={false} value={1} />
+      <div className="flex">
+        <SelectedNumbers
+          header={t("bingo.bingo_letters.b")}
+          inactiveNums={remainingNumbers}
+          nums={bNums}
+        />
+        <SelectedNumbers
+          header={t("bingo.bingo_letters.i")}
+          inactiveNums={remainingNumbers}
+          nums={iNums}
+        />
+        <SelectedNumbers
+          header={t("bingo.bingo_letters.n")}
+          inactiveNums={remainingNumbers}
+          nums={nNums}
+        />
+        <SelectedNumbers
+          header={t("bingo.bingo_letters.g")}
+          inactiveNums={remainingNumbers}
+          nums={gNums}
+        />
+        <SelectedNumbers
+          header={t("bingo.bingo_letters.o")}
+          inactiveNums={remainingNumbers}
+          nums={oNums}
+        />
+      </div>
     </div>
   );
 };

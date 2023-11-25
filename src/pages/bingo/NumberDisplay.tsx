@@ -18,7 +18,7 @@ const NumberDisplay = ({
   value: number;
 }) => {
   return (
-    <div className="flex">
+    <div className="my-1 flex">
       {isActive ? <ActiveNumber /> : <InactiveNumber />}
 
       <p className="text-lg font-bold">{value}</p>
