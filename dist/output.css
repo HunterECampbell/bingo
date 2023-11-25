@@ -534,8 +534,44 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .flex {
   display: flex;
+}
+
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-7 {
+  height: 1.75rem;
+}
+
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-7 {
+  width: 1.75rem;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-xl {
@@ -544,6 +580,35 @@ video {
 
 .p-2 {
   padding: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+:root {
+  --background: #f1f1f1;
+  --primary: #a3be8c;
+  --raised: 8px 8px 15px #d1d1d1, -8px -8px 15px #ffffff;
+  --inset: inset 8px 8px 15px #d1d1d1, inset -8px -8px 15px #ffffff;
 }
 
 html {
@@ -557,5 +622,23 @@ body {
   width: 100vw;
   align-items: center;
   justify-content: center;
-  background: #cedaea;
+  background: var(--background);
+}
+
+.raised-connected {
+  box-shadow: var(--raised);
+}
+
+.inset-connected {
+  box-shadow: var(--inset);
+}
+
+.raised-connected-active {
+  background-color: var(--primary);
+  box-shadow: var(--raised);
+}
+
+.inset-connected-active {
+  background-color: var(--primary);
+  box-shadow: var(--inset);
 }

@@ -1,7 +1,7 @@
 import "@/i18n";
 
 import Head from "next/head";
-import Bingo from "@/pages/bingo/bingo";
+import Bingo from "@/pages/bingo/Bingo";
 
 export default function Home() {
   return (
