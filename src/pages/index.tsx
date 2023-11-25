@@ -1,3 +1,5 @@
+import "@/i18n";
+
 import Head from "next/head";
 import Bingo from "@/pages/bingo/bingo";
 

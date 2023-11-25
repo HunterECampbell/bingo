@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 const Bingo = () => {
+  const { t } = useTranslation();
+
   type BingoLetter = "B" | "I" | "N" | "G" | "O";
 
   const getBingoValue = (value: number) => {
@@ -61,7 +65,7 @@ const Bingo = () => {
 
   return (
     <div className="flex rounded-xl p-2" style={{ backgroundColor: "#e1ebf4" }}>
-      <p>asdf</p>
+      <p>{t("bingo.errors.invalid_number")}</p>
     </div>
   );
 };

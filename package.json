@@ -10,9 +10,11 @@
     "tailwind": "npx tailwindcss -i ./src/styles/globals.css -o ./dist/output.css --watch"
   },
   "dependencies": {
+    "i18next": "^23.7.6",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-i18next": "^13.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",
