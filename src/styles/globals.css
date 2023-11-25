@@ -1,1 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+html {
+  @apply h-screen w-screen;
+}
+
+body {
+  @apply h-screen w-screen flex justify-center items-center;
+
+  background: #cedaea;
+}
