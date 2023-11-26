@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import CurrentNumbers from "@/pages/bingo/CurrentNumbers";
 import SelectedNumbers from "@/pages/bingo/SelectedNumbers";
 
 const Bingo = () => {
@@ -129,6 +130,10 @@ const Bingo = () => {
               {t("bingo.buttons.reset")}
             </button>
           )}
+
+          <div className="mt-6">
+            <CurrentNumbers currentNums={currentNumbers} />
+          </div>
         </div>
       </div>
     </div>
