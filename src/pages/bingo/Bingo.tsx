@@ -29,10 +29,7 @@ const Bingo = () => {
   const gNums: number[] = generateRangeOfNums({ start: 46, end: 60 });
   const oNums: number[] = generateRangeOfNums({ start: 61, end: 75 });
 
-  const [currentNumbers, setCurrentNumbers] = useState<[string, string]>([
-    "",
-    "",
-  ]);
+  const [currentNumber, setCurrentNumber] = useState<string>("");
   const [remainingNumbers, setRemainingNumbers] = useState<number[]>(
     generateRangeOfNums({ start: 1, end: 75 })
   );
@@ -56,10 +53,7 @@ const Bingo = () => {
   const getNextNumber = (): void => {
     const selectedIndex = Math.floor(Math.random() * remainingNumbers.length);
 
-    setCurrentNumbers([
-      currentNumbers[1],
-      getBingoValue(remainingNumbers[selectedIndex]),
-    ]);
+    setCurrentNumber(getBingoValue(remainingNumbers[selectedIndex]));
 
     const newNums = [...remainingNumbers];
     newNums.splice(selectedIndex, 1);
@@ -73,11 +67,15 @@ const Bingo = () => {
     >
       <div
         id="bingo-body"
-        className="raised-connected pb-6 m-6 rounded-xl overflow-auto flex flex-col"
+        className="raised-connected pb-6 m-6 max-h-[90%] rounded-xl overflow-y-auto flex flex-col"
       >
+        <h1 className="font-bold text-center text-3xl mt-2">
+          {t("bingo.header")}
+        </h1>
+
         <div
           id="number-display-area"
-          className="p-6 mb-2 max-w-[100%] overflow-auto flex"
+          className="p-6 mb-2 max-w-[100%] overflow-x-auto flex"
         >
           <SelectedNumbers
             header={t("bingo.bingo_letters.b")}
@@ -104,7 +102,6 @@ const Bingo = () => {
             inactiveNums={remainingNumbers}
             nums={oNums}
           />
-          {remainingNumbers}
         </div>
 
         <div
@@ -132,7 +129,7 @@ const Bingo = () => {
           )}
 
           <div className="mt-6">
-            <CurrentNumbers currentNums={currentNumbers} />
+            <CurrentNumbers currentNum={currentNumber} />
           </div>
         </div>
       </div>
