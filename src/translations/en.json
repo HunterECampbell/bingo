@@ -7,6 +7,9 @@
       "g": "G",
       "o": "O"
     },
+    "buttons": {
+      "next": "Next Number"
+    },
     "errors": {
       "invalid_number": "Invalid number. Number must be between 1-75. Number was:"
     }

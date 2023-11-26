@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import SelectedNumbers from "@/pages/bingo/SelectedNumbers";
@@ -28,7 +28,13 @@ const Bingo = () => {
   const gNums: number[] = generateRangeOfNums({ start: 46, end: 60 });
   const oNums: number[] = generateRangeOfNums({ start: 61, end: 75 });
 
-  const [remainingNumbers, setRemainingNumbers] = useState<number[]>([]);
+  const [currentNumbers, setCurrentNumbers] = useState<[string, string]>([
+    "",
+    "",
+  ]);
+  const [remainingNumbers, setRemainingNumbers] = useState<number[]>(
+    generateRangeOfNums({ start: 1, end: 75 })
+  );
 
   const getBingoValue = (value: number): string => {
     if (value >= 61 && value <= 75)
@@ -40,54 +46,78 @@ const Bingo = () => {
     else if (value >= 16 && value <= 30)
       return `${t("bingo.bingo_letters.i")}${value}`;
     else if (value >= 1 && value <= 15)
-      return `${t("bingo.bingo_letters.b ")}${value}`;
+      return `${t("bingo.bingo_letters.b")}${value}`;
     else {
       console.error(t("bingo.errors.invalid_number"), value);
       return "";
     }
   };
-  const resetRemainingNumbers = (): void => {
-    let nums: number[] = [];
+  const getNextNumber = (): void => {
+    const selectedIndex = Math.floor(Math.random() * remainingNumbers.length);
 
-    for (let i = 1; i <= 75; i++) {
-      nums.push(i);
-    }
+    setCurrentNumbers([
+      currentNumbers[1],
+      getBingoValue(remainingNumbers[selectedIndex]),
+    ]);
 
-    setRemainingNumbers(nums);
+    const newNums = [...remainingNumbers];
+    newNums.splice(selectedIndex, 1);
+    setRemainingNumbers(newNums);
   };
 
-  useEffect(() => {
-    resetRemainingNumbers();
-  }, []);
-
   return (
-    <div className="raised-connected flex flex-col rounded-xl p-2">
-      <div className="flex">
-        <SelectedNumbers
-          header={t("bingo.bingo_letters.b")}
-          inactiveNums={remainingNumbers}
-          nums={bNums}
-        />
-        <SelectedNumbers
-          header={t("bingo.bingo_letters.i")}
-          inactiveNums={remainingNumbers}
-          nums={iNums}
-        />
-        <SelectedNumbers
-          header={t("bingo.bingo_letters.n")}
-          inactiveNums={remainingNumbers}
-          nums={nNums}
-        />
-        <SelectedNumbers
-          header={t("bingo.bingo_letters.g")}
-          inactiveNums={remainingNumbers}
-          nums={gNums}
-        />
-        <SelectedNumbers
-          header={t("bingo.bingo_letters.o")}
-          inactiveNums={remainingNumbers}
-          nums={oNums}
-        />
+    <div
+      id="bingo"
+      className="h-screen w-screen flex justify-center items-center"
+    >
+      <div
+        id="bingo-body"
+        className="raised-connected pb-6 m-6 rounded-xl overflow-auto flex flex-col"
+      >
+        <div
+          id="number-display-area"
+          className="p-6 mb-2 max-w-[100%] overflow-auto flex"
+        >
+          <SelectedNumbers
+            header={t("bingo.bingo_letters.b")}
+            inactiveNums={remainingNumbers}
+            nums={bNums}
+          />
+          <SelectedNumbers
+            header={t("bingo.bingo_letters.i")}
+            inactiveNums={remainingNumbers}
+            nums={iNums}
+          />
+          <SelectedNumbers
+            header={t("bingo.bingo_letters.n")}
+            inactiveNums={remainingNumbers}
+            nums={nNums}
+          />
+          <SelectedNumbers
+            header={t("bingo.bingo_letters.g")}
+            inactiveNums={remainingNumbers}
+            nums={gNums}
+          />
+          <SelectedNumbers
+            header={t("bingo.bingo_letters.o")}
+            inactiveNums={remainingNumbers}
+            nums={oNums}
+          />
+          {remainingNumbers}
+        </div>
+
+        <div
+          id="next-number-area"
+          className="flex flex-col justify-center items-center"
+        >
+          <button
+            id="next-number-btn"
+            className="raised-connected font-bold rounded-lg px-4 py-1"
+            onClick={() => getNextNumber()}
+          >
+            {t("bingo.buttons.next")}
+          </button>
+        </div>
       </div>
     </div>
   );

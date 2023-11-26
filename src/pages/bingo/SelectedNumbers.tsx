@@ -28,7 +28,7 @@ const SelectedNumbers = ({
   return (
     <div
       key={inactiveNums.length}
-      className="raised-connected rounded-xl mx-2 p-2 flex flex-col"
+      className="raised-connected rounded-xl mx-2 px-2 flex flex-col"
     >
       <h1 className="text-2xl font-bold text-center">{header}</h1>
       {renderNums()}
