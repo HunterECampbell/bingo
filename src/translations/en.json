@@ -8,7 +8,8 @@
       "o": "O"
     },
     "buttons": {
-      "next": "Next Number"
+      "next": "Next Number",
+      "reset": "Reset Numbers"
     },
     "errors": {
       "invalid_number": "Invalid number. Number must be between 1-75. Number was:"

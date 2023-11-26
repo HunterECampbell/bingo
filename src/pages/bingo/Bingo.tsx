@@ -110,13 +110,25 @@ const Bingo = () => {
           id="next-number-area"
           className="flex flex-col justify-center items-center"
         >
-          <button
-            id="next-number-btn"
-            className="raised-connected font-bold rounded-lg px-4 py-1"
-            onClick={() => getNextNumber()}
-          >
-            {t("bingo.buttons.next")}
-          </button>
+          {remainingNumbers.length ? (
+            <button
+              id="next-number-btn"
+              className="raised-connected font-bold rounded-lg px-4 py-1"
+              onClick={() => getNextNumber()}
+            >
+              {t("bingo.buttons.next")}
+            </button>
+          ) : (
+            <button
+              id="reset-numbers-btn"
+              className="raised-connected font-bold rounded-lg px-4 py-1"
+              onClick={() =>
+                setRemainingNumbers(generateRangeOfNums({ start: 1, end: 75 }))
+              }
+            >
+              {t("bingo.buttons.reset")}
+            </button>
+          )}
         </div>
       </div>
     </div>
