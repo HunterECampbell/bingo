@@ -5,7 +5,6 @@ const DefaultView = ({
 }) => {
   return (
     <div className="flex justify-center items-center">
-      {carouselNums}
       <div
         id="small-num"
         className="raised-connected font-bold rounded-lg h-12 w-12 mx-3 flex justify-center items-center"

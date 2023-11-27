@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import CurrentNumbers from "@/pages/bingo/CurrentNumbers";
+import CurrentNumbers from "@/pages/bingo/current-numbers/CurrentNumbers";
 import SelectedNumbers from "@/pages/bingo/SelectedNumbers";
 
 const Bingo = () => {
@@ -29,7 +29,7 @@ const Bingo = () => {
   const gNums: number[] = generateRangeOfNums({ start: 46, end: 60 });
   const oNums: number[] = generateRangeOfNums({ start: 61, end: 75 });
 
-  const [currentNumber, setCurrentNumber] = useState<string>("");
+  const [currentNums, setCurrentNums] = useState<[string, string]>(["", ""]);
   const [remainingNumbers, setRemainingNumbers] = useState<number[]>(
     generateRangeOfNums({ start: 1, end: 75 })
   );
@@ -53,7 +53,10 @@ const Bingo = () => {
   const getNextNumber = (): void => {
     const selectedIndex = Math.floor(Math.random() * remainingNumbers.length);
 
-    setCurrentNumber(getBingoValue(remainingNumbers[selectedIndex]));
+    setCurrentNums([
+      currentNums[1],
+      getBingoValue(remainingNumbers[selectedIndex]),
+    ]);
 
     const newNums = [...remainingNumbers];
     newNums.splice(selectedIndex, 1);
@@ -129,7 +132,7 @@ const Bingo = () => {
           )}
 
           <div className="mt-6">
-            <CurrentNumbers currentNum={currentNumber} />
+            <CurrentNumbers currentNums={currentNums} />
           </div>
         </div>
       </div>
