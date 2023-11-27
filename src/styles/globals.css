@@ -1,0 +1,54 @@
+@import url("./current-numbers.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f1f1f1;
+  --primary: #a3be8c;
+  --raised: 8px 8px 15px #d1d1d1, -8px -8px 15px #ffffff;
+  --inset: inset 8px 8px 15px #d1d1d1, inset -8px -8px 15px #ffffff;
+}
+
+html {
+  @apply h-screen w-screen;
+}
+
+body {
+  @apply h-screen w-screen flex justify-center items-center;
+
+  background: var(--background);
+}
+
+button {
+  background: var(--primary) !important;
+  color: var(--background);
+}
+
+.raised-connected {
+  background: var(--background);
+  box-shadow: var(--raised);
+}
+.inset-connected {
+  background: var(--background);
+  box-shadow: var(--inset);
+}
+
+.raised-connected-active {
+  background-color: var(--primary);
+  box-shadow: var(--raised);
+}
+.inset-connected-active {
+  background-color: var(--primary);
+  box-shadow: var(--inset);
+}
+
+.raised-connected-on-primary {
+  background: var(--background);
+  box-shadow: 8px 8px 15px #748f65, -8px -8px 15px #b5d0a3;
+}
+
+#bingo {
+  background: var(--primary);
+}

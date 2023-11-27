@@ -1,0 +1,19 @@
+{
+  "bingo": {
+    "header": "BINGO",
+    "bingo_letters": {
+      "b": "B",
+      "i": "I",
+      "n": "N",
+      "g": "G",
+      "o": "O"
+    },
+    "buttons": {
+      "next": "Next Number",
+      "reset": "Reset Numbers"
+    },
+    "errors": {
+      "invalid_number": "Invalid number. Number must be between 1-75. Number was:"
+    }
+  }
+}
