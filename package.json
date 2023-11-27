@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d .next",
+    "deploy": "gh-pages -d out",
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && touch out/.nojekyll",
     "start": "next start",
     "lint": "next lint",
     "tailwind": "npx tailwindcss -i ./src/styles/globals.css -o ./dist/output.css --watch"
