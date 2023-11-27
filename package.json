@@ -17,7 +17,8 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "react-i18next": "^13.5.0"
+    "react-i18next": "^13.5.0",
+    "touch-cli": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
