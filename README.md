@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Accessing in Github Pages
+
+You can access this app at: [https://hunterecampbell.github.io/bingo/](https://hunterecampbell.github.io/bingo/)
+
 ## Getting Started
 
 First, run the development server:
