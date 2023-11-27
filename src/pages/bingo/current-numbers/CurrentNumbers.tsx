@@ -1,4 +1,8 @@
-const CurrentNumbers = ({ currentNums }: { currentNums: [string, string] }) => {
+const CurrentNumbers = ({
+  currentNums = ["", ""],
+}: {
+  currentNums: [string, string];
+}) => {
   return (
     <div className="flex justify-center items-center">
       <div

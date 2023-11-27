@@ -2,8 +2,8 @@ import NumberDisplay from "@/pages/bingo/NumberDisplay";
 
 const SelectedNumbers = ({
   header,
-  inactiveNums,
-  nums,
+  inactiveNums = [],
+  nums = [],
 }: {
   header: string;
   inactiveNums: number[];
