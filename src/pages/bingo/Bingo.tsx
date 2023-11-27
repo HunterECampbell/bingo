@@ -67,7 +67,7 @@ const Bingo = () => {
     >
       <div
         id="bingo-body"
-        className="raised-connected pb-6 m-6 max-h-[90%] rounded-xl overflow-y-auto flex flex-col"
+        className="raised-connected-on-primary pb-6 m-6 max-h-[90%] rounded-xl overflow-y-auto flex flex-col"
       >
         <h1 className="font-bold text-center text-3xl mt-2">
           {t("bingo.header")}
