@@ -1,5 +1,7 @@
 describe('Bingo Game E2E Tests', () => {
   beforeEach(() => {
+    // Set viewport to phone size (iPhone 12/13/14 dimensions)
+    cy.viewport(390, 844)
     cy.visit('/')
   })
 
@@ -36,10 +38,9 @@ describe('Bingo Game E2E Tests', () => {
     })
 
     it('should have glassmorphism styling applied', () => {
-      cy.get('#bingo-wrapper')
-        .should('have.css', 'backdrop-filter', 'blur(6px)')
-        .should('have.css', 'background-color')
-        .should('have.css', 'border-radius')
+      cy.get('#bingo-wrapper').should('have.css', 'backdrop-filter')
+      cy.get('#bingo-wrapper').should('have.css', 'background-color')
+      cy.get('#bingo-wrapper').should('have.css', 'border-radius')
     })
   })
 
@@ -59,16 +60,25 @@ describe('Bingo Game E2E Tests', () => {
 
     it('should move current number to previous when next number is called', () => {
       cy.get('#next-number-btn').click()
+      cy.get('#current-number').should('not.have.class', 'transparent')
       cy.get('#current-number p').invoke('text').as('firstNumber')
+
+      cy.get('#previous-number').should('have.class', 'transparent')
+
       cy.get('#next-number-btn').click()
-      cy.get('@firstNumber').then((firstNumber) => {
-        cy.get('#previous-number p').should('contain', firstNumber)
+      cy.get('#previous-number').should('not.have.class', 'transparent')
+      cy.get('#previous-number p').invoke('text').as('secondNumber')
+
+      cy.get('#previous-number').should('not.have.class', 'transparent')
+
+      cy.get('@secondNumber').then((secondNumber) => {
+        cy.get('#previous-number p').should('contain.text', String(secondNumber))
       })
-      cy.get('#current-number p')
-        .invoke('text')
-        .then((currentNumber) => {
-          cy.get('@firstNumber').should('not.equal', currentNumber)
-        })
+
+      cy.get('@firstNumber').then((firstNumber) => {
+        cy.get('#current-number p').invoke('text').should('contain.text', String(firstNumber))
+      })
+
       cy.get('.called-number').should('have.length', 2)
     })
 

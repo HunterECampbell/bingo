@@ -61,6 +61,26 @@ const handleGameProgression = () => {
 </template>
 
 <style scoped>
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 87, 64, 0.8);
+  border-radius: 4px;
+  border: none;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 87, 64, 1);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 87, 64, 0.8) transparent;
+}
+
 main {
   background-image: url('@/assets/pine_tree.jpg');
   background-size: cover;
@@ -77,6 +97,7 @@ main {
   #bingo-wrapper {
     width: 80%;
     height: 90%;
+    overflow: auto;
     padding: 12px 8px;
     display: flex;
     flex-direction: column;
