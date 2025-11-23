@@ -67,16 +67,16 @@ describe('Bingo Game E2E Tests', () => {
 
       cy.get('#next-number-btn').click()
       cy.get('#previous-number').should('not.have.class', 'transparent')
-      cy.get('#previous-number p').invoke('text').as('secondNumber')
+      cy.get('#current-number p').invoke('text').as('secondNumber')
 
       cy.get('#previous-number').should('not.have.class', 'transparent')
 
-      cy.get('@secondNumber').then((secondNumber) => {
-        cy.get('#previous-number p').should('contain.text', String(secondNumber))
+      cy.get('@firstNumber').then((firstNumber) => {
+        cy.get('#previous-number p').should('have.text', String(firstNumber))
       })
 
-      cy.get('@firstNumber').then((firstNumber) => {
-        cy.get('#current-number p').invoke('text').should('contain.text', String(firstNumber))
+      cy.get('@secondNumber').then((secondNumber) => {
+        cy.get('#current-number p').invoke('text').should('have.text', String(secondNumber))
       })
 
       cy.get('.called-number').should('have.length', 2)
