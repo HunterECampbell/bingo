@@ -31,7 +31,13 @@ const handleGameProgression = () => {
           class="number-indicator"
           :class="{ transparent: !bingoStore.previousNumber }"
         >
-          <p>{{ bingoStore.previousNumber }}</p>
+          <p>
+            {{
+              bingoStore.previousNumber
+                ? bingoStore.getLetterForNumber(bingoStore.previousNumber)
+                : ''
+            }}{{ bingoStore.previousNumber }}
+          </p>
         </div>
         <button id="next-number-btn" @click="handleGameProgression">
           {{ `${bingoStore.gameComplete ? 'Reset Game' : 'Next Number'}` }}
@@ -41,7 +47,13 @@ const handleGameProgression = () => {
           class="number-indicator"
           :class="{ transparent: !bingoStore.currentNumber }"
         >
-          <p>{{ bingoStore.currentNumber }}</p>
+          <p>
+            {{
+              bingoStore.currentNumber
+                ? bingoStore.getLetterForNumber(bingoStore.currentNumber)
+                : ''
+            }}{{ bingoStore.currentNumber }}
+          </p>
         </div>
       </div>
     </div>
@@ -71,7 +83,7 @@ main {
     justify-content: center;
     align-items: center;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -107,8 +119,8 @@ main {
           0 1px 0 rgba(66, 160, 71, 0.2) inset;
       }
       .number-indicator {
-        width: calc(var(--font-size) * 2);
-        height: calc(var(--font-size) * 2);
+        width: calc(var(--font-size) * 2.5);
+        height: calc(var(--font-size) * 2.5);
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(6px);

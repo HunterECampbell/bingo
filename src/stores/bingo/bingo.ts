@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { range } from 'lodash'
+import { inRange, range } from 'lodash'
 import { BingoLetter } from '@/types/bingo-types'
 
 interface BingoState {
@@ -31,8 +31,22 @@ export const useBingoStore = defineStore('bingo', {
   },
 
   actions: {
+    getLetterForNumber(number: number): BingoLetter {
+      if (inRange(number, 1, 16)) {
+        return BingoLetter.B
+      }
+      if (inRange(number, 16, 31)) {
+        return BingoLetter.I
+      }
+      if (inRange(number, 31, 46)) {
+        return BingoLetter.N
+      }
+      if (inRange(number, 46, 61)) {
+        return BingoLetter.G
+      }
+      return BingoLetter.O
+    },
     getNextNumber() {
-      // Check if someone is trying to call numbers after game is already complete
       if (this.gameComplete) {
         console.warn('All bingo numbers have been called!')
         return
@@ -40,8 +54,6 @@ export const useBingoStore = defineStore('bingo', {
 
       const remaining = this.remainingNumbers
 
-      // This should theoretically never happen due to gameComplete check above,
-      // but keeping it as a safety net for edge cases
       if (remaining.length === 0) {
         console.info('Bingo game complete! All 75 numbers have been called.')
         return

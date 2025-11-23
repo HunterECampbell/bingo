@@ -118,15 +118,12 @@ describe('useBingoStore', () => {
       it('should reset all game state', () => {
         const store = useBingoStore()
 
-        // Set some state
         store.currentNumber = 42
         store.previousNumber = 33
         store.calledNumbers = [1, 2, 3, 4, 5]
 
-        // Reset the game
         store.resetGame()
 
-        // Check that everything is reset
         expect(store.currentNumber).toBeNull()
         expect(store.previousNumber).toBeNull()
         expect(store.calledNumbers).toEqual([])
@@ -134,9 +131,96 @@ describe('useBingoStore', () => {
       })
     })
 
+    describe('getLetterForNumber', () => {
+      it('should return B for numbers 1-15', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(1)).toBe(BingoLetter.B)
+        expect(store.getLetterForNumber(8)).toBe(BingoLetter.B)
+        expect(store.getLetterForNumber(15)).toBe(BingoLetter.B)
+      })
+
+      it('should return I for numbers 16-30', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(16)).toBe(BingoLetter.I)
+        expect(store.getLetterForNumber(23)).toBe(BingoLetter.I)
+        expect(store.getLetterForNumber(30)).toBe(BingoLetter.I)
+      })
+
+      it('should return N for numbers 31-45', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(31)).toBe(BingoLetter.N)
+        expect(store.getLetterForNumber(38)).toBe(BingoLetter.N)
+        expect(store.getLetterForNumber(45)).toBe(BingoLetter.N)
+      })
+
+      it('should return G for numbers 46-60', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(46)).toBe(BingoLetter.G)
+        expect(store.getLetterForNumber(53)).toBe(BingoLetter.G)
+        expect(store.getLetterForNumber(60)).toBe(BingoLetter.G)
+      })
+
+      it('should return O for numbers 61-75', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(61)).toBe(BingoLetter.O)
+        expect(store.getLetterForNumber(68)).toBe(BingoLetter.O)
+        expect(store.getLetterForNumber(75)).toBe(BingoLetter.O)
+      })
+
+      it('should handle boundary numbers correctly', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(15)).toBe(BingoLetter.B)
+        expect(store.getLetterForNumber(16)).toBe(BingoLetter.I)
+        expect(store.getLetterForNumber(30)).toBe(BingoLetter.I)
+        expect(store.getLetterForNumber(31)).toBe(BingoLetter.N)
+        expect(store.getLetterForNumber(45)).toBe(BingoLetter.N)
+        expect(store.getLetterForNumber(46)).toBe(BingoLetter.G)
+        expect(store.getLetterForNumber(60)).toBe(BingoLetter.G)
+        expect(store.getLetterForNumber(61)).toBe(BingoLetter.O)
+      })
+
+      it('should default to O for numbers outside valid bingo range', () => {
+        const store = useBingoStore()
+
+        expect(store.getLetterForNumber(0)).toBe(BingoLetter.O)
+        expect(store.getLetterForNumber(76)).toBe(BingoLetter.O)
+        expect(store.getLetterForNumber(100)).toBe(BingoLetter.O)
+        expect(store.getLetterForNumber(-5)).toBe(BingoLetter.O)
+      })
+
+      it('should work with all valid bingo numbers', () => {
+        const store = useBingoStore()
+
+        for (let i = 1; i <= 15; i++) {
+          expect(store.getLetterForNumber(i)).toBe(BingoLetter.B)
+        }
+
+        for (let i = 16; i <= 30; i++) {
+          expect(store.getLetterForNumber(i)).toBe(BingoLetter.I)
+        }
+
+        for (let i = 31; i <= 45; i++) {
+          expect(store.getLetterForNumber(i)).toBe(BingoLetter.N)
+        }
+
+        for (let i = 46; i <= 60; i++) {
+          expect(store.getLetterForNumber(i)).toBe(BingoLetter.G)
+        }
+
+        for (let i = 61; i <= 75; i++) {
+          expect(store.getLetterForNumber(i)).toBe(BingoLetter.O)
+        }
+      })
+    })
+
     describe('getNextNumber', () => {
       beforeEach(() => {
-        // Mock Math.random to make tests deterministic
         vi.spyOn(Math, 'random').mockReturnValue(0.5)
       })
 
@@ -170,7 +254,6 @@ describe('useBingoStore', () => {
         const store = useBingoStore()
         const calledNumbers = new Set()
 
-        // Call numbers multiple times
         for (let i = 0; i < 10; i++) {
           store.getNextNumber()
           if (store.currentNumber) {
@@ -180,19 +263,17 @@ describe('useBingoStore', () => {
         }
 
         expect(store.calledNumbers).toHaveLength(10)
-        expect(new Set(store.calledNumbers).size).toBe(10) // All unique
+        expect(new Set(store.calledNumbers).size).toBe(10)
       })
 
       it('should warn and return early when game is complete', () => {
         const store = useBingoStore()
         const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-        // Play a complete game naturally, then try to call another number
         while (!store.gameComplete) {
           store.getNextNumber()
         }
 
-        // Now try to call getNextNumber() when game is already complete
         store.getNextNumber()
 
         expect(consoleSpy).toHaveBeenCalledWith('All bingo numbers have been called!')
@@ -204,7 +285,6 @@ describe('useBingoStore', () => {
       it('should call all numbers from 1 to 75 eventually', () => {
         const store = useBingoStore()
 
-        // Call getNextNumber until game is complete
         while (!store.gameComplete) {
           store.getNextNumber()
         }
@@ -212,7 +292,6 @@ describe('useBingoStore', () => {
         expect(store.calledNumbers).toHaveLength(75)
         expect(store.gameComplete).toBe(true)
 
-        // Check that all numbers 1-75 are present
         const sortedCalled = [...store.calledNumbers].sort((a, b) => a - b)
         const expectedNumbers = Array.from({ length: 75 }, (_, i) => i + 1)
         expect(sortedCalled).toEqual(expectedNumbers)
@@ -221,7 +300,6 @@ describe('useBingoStore', () => {
       it('should only call numbers within bingo range (1-75)', () => {
         const store = useBingoStore()
 
-        // Call several numbers
         for (let i = 0; i < 20; i++) {
           store.getNextNumber()
         }
@@ -242,9 +320,8 @@ describe('useBingoStore', () => {
       expect(store.gameComplete).toBe(false)
       expect(store.calledNumbers).toHaveLength(0)
 
-      // Play the entire game
       let iterationCount = 0
-      const maxIterations = 100 // Safety net
+      const maxIterations = 100
 
       while (!store.gameComplete && iterationCount < maxIterations) {
         const beforeCount = store.calledNumbers.length
@@ -261,7 +338,6 @@ describe('useBingoStore', () => {
     it('should maintain proper state through reset cycles', () => {
       const store = useBingoStore()
 
-      // Play partially
       for (let i = 0; i < 10; i++) {
         store.getNextNumber()
       }
@@ -269,7 +345,6 @@ describe('useBingoStore', () => {
       expect(store.calledNumbers).toHaveLength(10)
       expect(store.currentNumber).not.toBeNull()
 
-      // Reset and verify
       store.resetGame()
 
       expect(store.calledNumbers).toHaveLength(0)
@@ -278,7 +353,6 @@ describe('useBingoStore', () => {
       expect(store.gameComplete).toBe(false)
       expect(store.remainingNumbers).toHaveLength(75)
 
-      // Should be able to play again
       store.getNextNumber()
       expect(store.calledNumbers).toHaveLength(1)
       expect(store.currentNumber).not.toBeNull()
