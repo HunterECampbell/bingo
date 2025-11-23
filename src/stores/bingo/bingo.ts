@@ -32,6 +32,7 @@ export const useBingoStore = defineStore('bingo', {
 
   actions: {
     getNextNumber() {
+      // Check if someone is trying to call numbers after game is already complete
       if (this.gameComplete) {
         console.warn('All bingo numbers have been called!')
         return
@@ -39,6 +40,8 @@ export const useBingoStore = defineStore('bingo', {
 
       const remaining = this.remainingNumbers
 
+      // This should theoretically never happen due to gameComplete check above,
+      // but keeping it as a safety net for edge cases
       if (remaining.length === 0) {
         console.info('Bingo game complete! All 75 numbers have been called.')
         return
