@@ -26,34 +26,40 @@ const handleGameProgression = () => {
       </div>
 
       <div id="footer">
-        <div
-          id="previous-number"
-          class="number-indicator"
-          :class="{ transparent: !bingoStore.previousNumber }"
-        >
-          <p>
-            {{
-              bingoStore.previousNumber
-                ? bingoStore.getLetterForNumber(bingoStore.previousNumber)
-                : ''
-            }}{{ bingoStore.previousNumber }}
-          </p>
+        <div class="number-indicator-wrapper">
+          <div
+            id="previous-number"
+            class="number-indicator"
+            :class="{ transparent: !bingoStore.previousNumber }"
+          >
+            <p>
+              {{
+                bingoStore.previousNumber
+                  ? bingoStore.getLetterForNumber(bingoStore.previousNumber)
+                  : ''
+              }}{{ bingoStore.previousNumber }}
+            </p>
+          </div>
         </div>
+
         <button id="next-number-btn" @click="handleGameProgression">
           {{ `${bingoStore.gameComplete ? 'Reset Game' : 'Next Number'}` }}
         </button>
-        <div
-          id="current-number"
-          class="number-indicator"
-          :class="{ transparent: !bingoStore.currentNumber }"
-        >
-          <p>
-            {{
-              bingoStore.currentNumber
-                ? bingoStore.getLetterForNumber(bingoStore.currentNumber)
-                : ''
-            }}{{ bingoStore.currentNumber }}
-          </p>
+
+        <div class="number-indicator-wrapper">
+          <div
+            id="current-number"
+            class="number-indicator"
+            :class="{ transparent: !bingoStore.currentNumber }"
+          >
+            <p>
+              {{
+                bingoStore.currentNumber
+                  ? bingoStore.getLetterForNumber(bingoStore.currentNumber)
+                  : ''
+              }}{{ bingoStore.currentNumber }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +67,10 @@ const handleGameProgression = () => {
 </template>
 
 <style scoped>
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 87, 64, 0.8) transparent;
+}
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -75,10 +85,6 @@ const handleGameProgression = () => {
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(29, 87, 64, 1);
-}
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(29, 87, 64, 0.8) transparent;
 }
 
 main {
@@ -95,14 +101,17 @@ main {
   font-family: 'Arial', sans-serif;
 
   #bingo-wrapper {
-    width: 80%;
-    height: 90%;
+    max-width: 80%;
+    width: fit-content;
+    max-height: 90%;
+    height: fit-content;
     overflow: auto;
-    padding: 12px 8px;
+    padding: 12px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
     border-radius: 16px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(6px);
@@ -123,6 +132,13 @@ main {
       justify-content: center;
       align-items: center;
       margin-top: 16px;
+
+      .number-indicator-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4rem;
+      }
 
       #previous-number {
         --font-size: 0.9rem;
