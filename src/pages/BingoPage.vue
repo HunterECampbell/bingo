@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import BingoLetterColumn from '@/components/BingoLetterColumn.vue'
 import { BingoLetter } from '@/types/bingo-types'
 import { useBingoStore } from '@/stores/bingo/bingo'
+import { usePullToRefresh } from '@/composables/usePullToRefresh'
 
 const bingoStore = useBingoStore()
+const bingoContentRef = ref<HTMLElement | null>(null)
+
+usePullToRefresh(bingoContentRef)
 
 const handleGameProgression = () => {
   if (bingoStore.gameComplete) {
@@ -17,7 +22,7 @@ const handleGameProgression = () => {
 <template>
   <main>
     <div id="bingo-card">
-      <div id="bingo-content">
+      <div id="bingo-content" ref="bingoContentRef">
         <div id="bingo-letter-columns">
           <BingoLetterColumn
             v-for="letter in Object.values(BingoLetter)"
