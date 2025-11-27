@@ -6,9 +6,11 @@ import { useBingoStore } from '@/stores/bingo/bingo'
 import { usePullToRefresh } from '@/composables/usePullToRefresh'
 
 const bingoStore = useBingoStore()
-const bingoContentRef = ref<HTMLElement | null>(null)
 
-usePullToRefresh(bingoContentRef)
+const bingoContentRef = ref<HTMLElement | null>(null)
+const refreshIndicatorRef = ref<HTMLElement | null>(null)
+
+usePullToRefresh(bingoContentRef, refreshIndicatorRef)
 
 const handleGameProgression = () => {
   if (bingoStore.gameComplete) {
@@ -22,6 +24,23 @@ const handleGameProgression = () => {
 <template>
   <main>
     <div id="bingo-card">
+      <div id="refresh-indicator" ref="refreshIndicatorRef">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"
+          />
+        </svg>
+      </div>
+
       <div id="bingo-content" ref="bingoContentRef">
         <div id="bingo-letter-columns">
           <BingoLetterColumn
@@ -121,6 +140,32 @@ main {
       0 1px 0 rgba(255, 255, 255, 0.2) inset;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+
+  #refresh-indicator {
+    --size: 2.5rem;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-40px);
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
   }
 
   #bingo-content {
