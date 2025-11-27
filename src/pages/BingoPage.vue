@@ -170,14 +170,14 @@ main {
 
   #bingo-content {
     max-width: calc(100vw - 32px - 48px);
-    max-height: calc(100vh - 32px - 128px);
+    max-height: calc(100vh - 32px - 132px);
     overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: safe center;
     align-items: safe center;
     padding: 12px 16px;
-    padding-bottom: 32px;
+    /* padding-bottom: 16px; */
 
     #bingo-letter-columns {
       display: flex;
