@@ -12,14 +12,14 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   color: rgba(255, 255, 255, 0.75);
 }
 
 #app {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
 }
 </style>

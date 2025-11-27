@@ -121,11 +121,11 @@ main {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: 'Arial', sans-serif;
   padding: 32px 16px;
+  padding-top: 16px;
   box-sizing: border-box;
 
   #bingo-card {
@@ -170,7 +170,7 @@ main {
 
   #bingo-content {
     max-width: calc(100vw - 32px - 48px);
-    max-height: calc(100vh - 32px - 64px);
+    max-height: calc(100vh - 32px - 128px);
     overflow: auto;
     display: flex;
     flex-direction: column;
