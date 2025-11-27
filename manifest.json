@@ -1,0 +1,17 @@
+{
+  "name": "Bingo Game",
+  "short_name": "Bingo",
+  "description": "A bingo number caller application",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d5740",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
