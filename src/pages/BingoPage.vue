@@ -16,49 +16,51 @@ const handleGameProgression = () => {
 
 <template>
   <main>
-    <div id="bingo-wrapper">
-      <div id="bingo-letter-columns">
-        <BingoLetterColumn
-          v-for="letter in Object.values(BingoLetter)"
-          :key="letter"
-          :letter="letter"
-        />
-      </div>
-
-      <div id="footer">
-        <div class="number-indicator-wrapper">
-          <div
-            id="previous-number"
-            class="number-indicator"
-            :class="{ transparent: !bingoStore.previousNumber }"
-          >
-            <p>
-              {{
-                bingoStore.previousNumber
-                  ? bingoStore.getLetterForNumber(bingoStore.previousNumber)
-                  : ''
-              }}{{ bingoStore.previousNumber }}
-            </p>
-          </div>
+    <div id="bingo-card">
+      <div id="bingo-content">
+        <div id="bingo-letter-columns">
+          <BingoLetterColumn
+            v-for="letter in Object.values(BingoLetter)"
+            :key="letter"
+            :letter="letter"
+          />
         </div>
 
-        <button id="next-number-btn" @click="handleGameProgression">
-          {{ `${bingoStore.gameComplete ? 'Reset Game' : 'Next Number'}` }}
-        </button>
+        <div id="footer">
+          <div class="number-indicator-wrapper">
+            <div
+              id="previous-number"
+              class="number-indicator"
+              :class="{ transparent: !bingoStore.previousNumber }"
+            >
+              <p>
+                {{
+                  bingoStore.previousNumber
+                    ? bingoStore.getLetterForNumber(bingoStore.previousNumber)
+                    : ''
+                }}{{ bingoStore.previousNumber }}
+              </p>
+            </div>
+          </div>
 
-        <div class="number-indicator-wrapper">
-          <div
-            id="current-number"
-            class="number-indicator"
-            :class="{ transparent: !bingoStore.currentNumber }"
-          >
-            <p>
-              {{
-                bingoStore.currentNumber
-                  ? bingoStore.getLetterForNumber(bingoStore.currentNumber)
-                  : ''
-              }}{{ bingoStore.currentNumber }}
-            </p>
+          <button id="next-number-btn" @click="handleGameProgression">
+            {{ `${bingoStore.gameComplete ? 'Reset Game' : 'Next Number'}` }}
+          </button>
+
+          <div class="number-indicator-wrapper">
+            <div
+              id="current-number"
+              class="number-indicator"
+              :class="{ transparent: !bingoStore.currentNumber }"
+            >
+              <p>
+                {{
+                  bingoStore.currentNumber
+                    ? bingoStore.getLetterForNumber(bingoStore.currentNumber)
+                    : ''
+                }}{{ bingoStore.currentNumber }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -99,19 +101,11 @@ main {
   align-items: center;
   flex-direction: column;
   font-family: 'Arial', sans-serif;
+  padding: 32px 16px;
+  box-sizing: border-box;
 
-  #bingo-wrapper {
-    max-width: 80%;
-    width: fit-content;
-    max-height: 90%;
-    height: fit-content;
-    overflow: auto;
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  #bingo-card {
+    padding: 16px 8px;
     border-radius: 16px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(6px);
@@ -120,6 +114,20 @@ main {
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.1),
       0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bingo-content {
+    max-width: calc(100vw - 32px - 48px);
+    max-height: calc(100vh - 32px - 64px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: safe center;
+    align-items: safe center;
+    padding: 12px 16px;
+    padding-bottom: 32px;
 
     #bingo-letter-columns {
       display: flex;
