@@ -177,7 +177,6 @@ main {
     justify-content: safe center;
     align-items: safe center;
     padding: 12px 16px;
-    /* padding-bottom: 16px; */
 
     #bingo-letter-columns {
       display: flex;
